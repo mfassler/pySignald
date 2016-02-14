@@ -4,6 +4,7 @@
 lint:
 	pep8 --max-line-length=100 *.py
 	pep8 --max-line-length=100 handlers/*.py
+	pep8 --max-line-length=100 socket_handlers/*.py
 	pep8 --max-line-length=100 lib/*.py
 
 .PHONY: protobuf

@@ -11,9 +11,10 @@ import time
 import random
 import socket
 
-from lib.getpeercred import getpeerid # TODO: inconsistent naming
+from lib.getpeercred import getpeerid  # TODO: inconsistent naming
 
 import config
+
 
 class Domain():
     def __init__(self, path):
@@ -47,4 +48,3 @@ class Domain():
         conn.send('Your verification code is: %s' % register['code'])
         conn.send('  (expires in 5 minutes)\n')
         conn.close()
-

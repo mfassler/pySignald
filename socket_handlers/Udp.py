@@ -30,4 +30,3 @@ class Udp():
             body = base64.b64decode(msg['body'])
             handlers.sendPush(clientId, msg['from'], body, msg['type'], msg['ts'])
         '''
-
