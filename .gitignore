@@ -1,0 +1,6 @@
+
+*.pyc
+*.swp
+db/*.json
+db/*:password
+
