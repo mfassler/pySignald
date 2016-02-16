@@ -34,17 +34,25 @@ class Domain():
         conn, addr = self.s.accept()
         uid, gid = getpeerid(conn)
         userinfo = pwd.getpwuid(uid)
+        username = userinfo.pw_name
 
-        conn.send('Hello, %s\n' % (userinfo.pw_name))
+        conn.send('Hello, %s\n' % (username))
 
-        phoneNumber = config.basePhoneNumber + uid
-        username = '+1' + str(phoneNumber)
         register = {
             'code': random.randrange(100000, 999999),
             'expire': time.time() + 300
         }
-        config.db.setJSON(username, 'register.json', register)
-        conn.send('Your phone number is: %s\n' % phoneNumber)
+
+        if hasattr(config, 'basePhoneNumber'):
+            phoneNumber = config.basePhoneNumber + uid
+            signal_username = '+1' + str(phoneNumber)
+
+            config.db.setJSON(signal_username, 'register.json', register)
+            conn.send('Your phone number is: %s\n' % phoneNumber)
+        else:
+            config.db.setJSON(username, 'register.json', register)
+            conn.send('Your "phone number" is: %s\n' % username)
+
         conn.send('Your verification code is: %s' % register['code'])
         conn.send('  (expires in 5 minutes)\n')
         conn.close()
