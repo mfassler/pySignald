@@ -1,0 +1,69 @@
+diff --git a/js/background.js b/js/background.js
+index 0e145ff..387528c 100644
+--- a/js/background.js
++++ b/js/background.js
+@@ -50,7 +50,7 @@
+         });
+     });
+ 
+-    var SERVER_URL = 'https://textsecure-service-staging.whispersystems.org';
++    var SERVER_URL = 'http://localhost:8123';
+     var ATTACHMENT_SERVER_URL = 'https://whispersystems-textsecure-attachments-staging.s3.amazonaws.com';
+     var messageReceiver;
+     window.getSocketStatus = function() {
+diff --git a/js/models/conversations.js b/js/models/conversations.js
+index 2d80377..9468638 100644
+--- a/js/models/conversations.js
++++ b/js/models/conversations.js
+@@ -55,8 +55,6 @@
+             return "Invalid conversation type: " + attributes.type;
+         }
+ 
+-        var error = this.validateNumber();
+-        if (error) { return error; }
+ 
+         this.updateTokens();
+     },
+diff --git a/js/views/conversation_search_view.js b/js/views/conversation_search_view.js
+index 5226e83..3eb512f 100644
+--- a/js/views/conversation_search_view.js
++++ b/js/views/conversation_search_view.js
+@@ -22,7 +22,7 @@
+             };
+         },
+         validate: function() {
+-            if (this.model.isValid()) {
++            if (true) {
+                 this.$el.addClass('valid');
+             } else {
+                 this.$el.removeClass('valid');
+@@ -93,7 +93,7 @@
+ 
+         createConversation: function() {
+             var conversation = this.new_contact_view.model;
+-            if (this.new_contact_view.model.isValid()) {
++            if (true) {
+                 ConversationController.findOrCreatePrivateById(
+                     this.new_contact_view.model.id
+                 ).then(function(conversation) {
+@@ -152,7 +152,7 @@
+         },
+ 
+         maybeNumber: function(number) {
+-            return number.replace(/[\s-.\(\)]*/g,'').match(/^\+?[0-9]*$/);
++            return true;
+         }
+     });
+ 
+diff --git a/js/views/phone-input-view.js b/js/views/phone-input-view.js
+index 48c4c80..c5ab196 100644
+--- a/js/views/phone-input-view.js
++++ b/js/views/phone-input-view.js
+@@ -24,6 +24,7 @@
+             var input = this.$('input.number');
+             var regionCode = this.$('li.active').attr('data-country-code').toUpperCase();
+             var number = input.val();
++            return number;
+ 
+             var parsedNumber = libphonenumber.util.parseNumber(number, regionCode);
+             if (parsedNumber.isValidNumber) {
